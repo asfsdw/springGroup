@@ -17,7 +17,7 @@
     <%--
     	< % @ 디렉티브(directive): 지시자(page, include, taglib) %>
     	< %		스크립틀릿(scriptlet): JSP 문서 안의 서블릿(Java)코드를 사용할 때 쓴다. %>
-    	< % = 표현식(expression): 변수(수식)값을 출력할 때 사용. %>
+    	< % = 표현식(expression): 변수(수식)값을 출력할 때 사용. %> = getWriter
     	< % ! 선언문(declaration): 변수, 메소드를 선언할 때 사용. %>
     --%>
     <%!

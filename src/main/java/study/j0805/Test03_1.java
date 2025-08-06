@@ -1,4 +1,4 @@
-package j0805;
+package study.j0805;
 
 import java.io.IOException;
 import java.io.PrintWriter;
