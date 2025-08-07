@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String name = request.getParameter("name");
+	String age = request.getParameter("age");
+	String gender = request.getParameter("gender");
+	
+	pageContext.setAttribute("name", name);
+	pageContext.setAttribute("age", age);
+	pageContext.setAttribute("gender", gender);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <title>test12Ok</title>
+</head>
+<body>
+  <div class="container">
+    <p>이름: ${vo.name}</p>
+    <p>나이: ${vo.age}</p>
+    <p>성별: ${vo.gender}</p>
+    <p>취미: ${vo.hobby}</p>
+    <p>직업: ${vo.job}</p>
+    <p>가본 산: ${vo.mountain}</p>
+    <p>자기소개<br/>${vo.content}</p>
+    <p>파일<br/>
+    <p><img src="${pageContext.request.contextPath}/images/${vo.fileName}" width="200px" /></p>
+    <p><input type="button" value="돌아가기" onclick="location.href='${pageContext.request.contextPath}/study/0806/test12_mvc.jsp'" class="btn btn-warning" /></p>
+  </div>
+</body>
+</html>

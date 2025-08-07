@@ -1,30 +1,29 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	String mid = request.getParameter("mid") == null ? "" : request.getParameter("mid");
-	String msgFlag = request.getParameter("msgFlag") == null ? "" : request.getParameter("msgFlag");
 %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>test07_member</title>
+    <title>test10_member</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     	'use strict';
     	
-    	if("<%=msgFlag%>" == "ok") alert("<%=mid%>님 방문을 환영합니다.");
+    	if("<%=mid%>" != "") alert("<%=mid%>님 방문을 환영합니다.");
     	else {
     		alert("로그인 후, 사용해주세요.");
-    		location.href = "<%=request.getContextPath()%>/study/0806/test07.jsp";
+    		location.href = "<%=request.getContextPath()%>/study/0806/test10_login.jsp";
     	}
     	
     	function logoutCheck() {
     		let ans = confirm("로그아웃하시겠습니까?");
     		if(ans) {
     			alert("<%=mid%>님 로그아웃되었습니다.");
-    			location.href = "test07.jsp";
+    			location.href = "<%=request.getContextPath()%>/study/0806/test10_login.jsp";
     		}
     	}
     	

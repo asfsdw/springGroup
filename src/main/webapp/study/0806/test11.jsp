@@ -6,7 +6,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>test08</title>
+    <title>test11</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -69,7 +69,7 @@
   <p><br/></p>
   <div class="container">
     <h2>값 전송 연습</h2>
-    <form name="myform" method="post" action="<%=request.getContextPath()%>/j0806/Test08">
+    <form name="myform" method="post" action="<%=request.getContextPath()%>/j0806/Test11">
     	<div class="mb-3">성명
 	  	  <input type="text" id="name" name="name" value="홍길동" class="form-control mb-3" autofocus required />
 	  	</div>
