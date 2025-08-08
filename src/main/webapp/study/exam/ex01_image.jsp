@@ -1,8 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%--
-	콤보상자와 리스트박스에 그림을 추가시켜준 후, 그림을 선택하면 하단에 선택된 그림을 표시.
-	단, 리스트박스의 그림은 여러장을 선택하여 출력시켜줄 수 있도록 처리.
---%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +23,13 @@ $(function() {
 	
 	$("#comboBox").on("change", function() {
 		str = "";
-    let name = $(this).val();
-    if (name !== "") {
-      str += "<img src='${pageContext.request.contextPath}/images/"+name+".jpg'
-      	width='200px' height='160px' class='mb-2' />&nbsp;";
-    }
-    $("#demo").html(str);
-  });
+		let name = $(this).val();
+		if (name !== "") {
+			str += "<img src='${pageContext.request.contextPath}/images/"+name+".jpg'
+				width='200px' height='160px' class='mb-2' />&nbsp;";
+		}
+		$("#demo").html(str);
+	});
 	
 	$("#listBox").on("change", function() {
 		str = "";
@@ -47,41 +43,31 @@ $(function() {
 	
 	$("[name='selectAll']").on("click",function() {
 		for(let i=0; i<$("[name='images']").length; i++) {
-	  	$("[name='images']")[i].checked = true;
-	  }
+			$("[name='images']")[i].checked = true;
+		}
 		$("[name='images']").trigger("change");
-	});
+		});
 	$("[name='cancleAll']").on("click",function() {
 		for(let i=0; i<$("[name='images']").length; i++) {
-	  	$("[name='images']")[i].checked = false;
-	  }
+			$("[name='images']")[i].checked = false;
+		}
 		$("[name='images']").trigger("change");
 	});
 	
 	$("[name='listSelectAll']").on("click",function() {
 		for(let i=0; i<$("#listBox option").length; i++) {
-	  	$("#listBox option")[i].selected = true;
-	  }
+			$("#listBox option")[i].selected = true;
+		}
 		$("#listBox").trigger("change");
 	});
 	$("[name='listCancleAll']").on("click",function() {
 		for(let i=0; i<$("#listBox option").length; i++) {
-	  	$("#listBox option")[i].selected = false;
-	  }
+			$("#listBox option")[i].selected = false;
+		}
 		$("#listBox").trigger("change");
 	});
 });
 
-/* function fSelect() {
-  for(let i=0; i<$("[name='images']").length; i++) {
-  	$("[name='images']")[i].checked = true;
-  }
-}
-function fDelete() {
-  for(let i=0; i<$("[name='images']").length; i++) {
-  	$("[name='images']")[i].checked = false;
-  }
-} */
 </script>
 <body>
 <p><br/></p>
@@ -105,39 +91,39 @@ function fDelete() {
  	</div>
  	<p></p>
   <div>
-    <input type="button" value="모두 선택" name="selectAll" class="btn btn-primary me-3" />
-  	<input type="button" value="모두 취소" name="cancleAll" class="btn btn-danger me-3" />
+		<input type="button" value="모두 선택" name="selectAll" class="btn btn-primary me-3" />
+		<input type="button" value="모두 취소" name="cancleAll" class="btn btn-danger me-3" />
   </div>
 	<p><br/></p>
- 	<div>
-    <select id="comboBox" class="form-select w-auto">
-      <option value="">-- 그림 선택 --</option>
-      <option value="01">01.jpg</option>
-      <option value="02">02.jpg</option>
-      <option value="03">03.jpg</option>
-      <option value="04">04.jpg</option>
-      <option value="05">05.jpg</option>
-      <option value="06">06.jpg</option>
-      <option value="07">07.jpg</option>
-    </select>
-  </div>
+	<div>
+		<select id="comboBox" class="form-select w-auto">
+			<option value="">-- 그림 선택 --</option>
+			<option value="01">01.jpg</option>
+			<option value="02">02.jpg</option>
+			<option value="03">03.jpg</option>
+			<option value="04">04.jpg</option>
+			<option value="05">05.jpg</option>
+			<option value="06">06.jpg</option>
+			<option value="07">07.jpg</option>
+		</select>
+	</div>
 	<p><br/></p>
- 	<div>
-    <select id="listBox" multiple style="height: 180px" class="form-select w-auto">
-      <option value="01">01.jpg</option>
-      <option value="02">02.jpg</option>
-      <option value="03">03.jpg</option>
-      <option value="04">04.jpg</option>
-      <option value="05">05.jpg</option>
-      <option value="06">06.jpg</option>
-      <option value="07">07.jpg</option>
-    </select>
-    <p></p>
-    <div>
-	    <input type="button" value="모두 선택" name="listSelectAll" class="btn btn-primary me-3" />
-	  	<input type="button" value="모두 취소" name="listCancleAll" class="btn btn-danger me-3" />
-  </div>
-  </div>
+	<div>
+		<select id="listBox" multiple style="height: 180px" class="form-select w-auto">
+			<option value="01">01.jpg</option>
+			<option value="02">02.jpg</option>
+			<option value="03">03.jpg</option>
+			<option value="04">04.jpg</option>
+			<option value="05">05.jpg</option>
+			<option value="06">06.jpg</option>
+			<option value="07">07.jpg</option>
+		</select>
+		<p></p>
+		<div>
+			<input type="button" value="모두 선택" name="listSelectAll" class="btn btn-primary me-3" />
+			<input type="button" value="모두 취소" name="listCancleAll" class="btn btn-danger me-3" />
+		</div>
+	</div>
 	<p><br/></p>
 	<div id="demo"></div>
 </div>

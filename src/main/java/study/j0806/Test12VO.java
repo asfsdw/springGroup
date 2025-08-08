@@ -9,7 +9,23 @@ public class Test12VO {
 	private String mountain;
 	private String content;
 	private String fileName;
+	private String Address;
 	
+	public Test12VO() {
+	}
+	public Test12VO(String name, int age, String gender, String hobby, String job, String mountain, String content,
+			String fileName, String address) {
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		this.hobby = hobby;
+		this.job = job;
+		this.mountain = mountain;
+		this.content = content;
+		this.fileName = fileName;
+		Address = address;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -58,10 +74,16 @@ public class Test12VO {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	public String getAddress() {
+		return Address;
+	}
+	public void setAddress(String address) {
+		Address = address;
+	}
 
 	@Override
 	public String toString() {
 		return "Test12VO [name=" + name + ", age=" + age + ", gender=" + gender + ", hobby=" + hobby + ", job=" + job
-				+ ", mountain=" + mountain + ", content=" + content + ", fileName=" + fileName + "]";
+				+ ", mountain=" + mountain + ", content=" + content + ", fileName=" + fileName + ", Address=" + Address + "]";
 	}
 }

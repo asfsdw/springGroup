@@ -69,7 +69,7 @@
     <div>
     	<form name="myform" method="post" action="${pageContext.request.contextPath}/j0807/EL">
     		<div>성명
-    			<input type="text" name="name2" value="이기자" class="btn btn-form-control" />
+    			<input type="text" name="name2" value="이기자" class="form-control" />
     		</div>
     		<div class="mb-3">직업
 	  	  <select name="job" class="form-control">
@@ -81,13 +81,13 @@
 	  	    <option>자영업</option>
 	  	    <option>가사</option>
 	  	  </select>
-	  	</div>
-	  	<div>
-	  		<input type="submit" value="전송" class="btn btn-success" />
-	  	</div>
-	  	<hr/>
-	  	<p>성명: ${name2}</p>
-	  	<p>직업: ${job}</p>
+		  	</div>
+		  	<div>
+		  		<input type="submit" value="전송" class="btn btn-success" />
+		  	</div>
+		  	<hr/>
+		  	<p>성명: ${name2}</p>
+		  	<p>직업: ${job}</p>
     	</form>
     </div>
   </div>
