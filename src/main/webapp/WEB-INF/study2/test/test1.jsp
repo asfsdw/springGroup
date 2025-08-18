@@ -1,0 +1,21 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<jsp:include page="/include/bs5.jsp" />
+		<title>title</title>
+	</head>
+<body>
+	<p><br/></p>
+	<div class="container">
+		<h2>이곳은 WEB-INF 폴더에 위치한 test1.jsp 파일입니다.</h2>
+		<p><br/></p>
+		<p><img src="${pageContext.request.contextPath}/images/01.jpg" width="200px"/></p>
+		<hr/>
+		<p><a href="${pageContext.request.contextPath}/study2/TestMenu" class="btn btn-success">testMenu.jsp로 이동</a></p>
+	</div>
+	<p><br/></p>
+</body>
+</html>
