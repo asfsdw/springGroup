@@ -20,6 +20,9 @@
 		<p><a href="${ctp}/study2/init/login">login 테스트</a></p>
 		<p><a href="${ctp}/springGroup">login 테스트2</a></p>
 		<p><a href="${ctp}/javaGroup">login 테스트3</a></p>
+		<p><a href="${ctp}/study2/login/Login">웹사이트 테스트</a></p>
+		<p><a href="${ctp}/study2/password/PassForm">비밀번호 암호화 테스트</a></p>
+		<p><a href="${ctp}/study2/ajax/AjaxMenu">AJAX 테스트</a></p>
 	</div>
 	<p><br/></p>
 </body>
