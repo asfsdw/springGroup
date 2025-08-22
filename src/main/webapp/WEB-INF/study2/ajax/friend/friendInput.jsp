@@ -61,7 +61,7 @@
     
 		function idCheck() {
 			let mid = myform.mid.value;
-			let url = "${ctp}/study2/login/LoginIdCheck?mid="+mid;
+			let url = "${ctp}/study2/ajax/friend/FriendIdCheck?mid="+mid;
 			
 			if(mid.trim() == "") {
 				alert("아이디를 입력하세요!");
@@ -69,12 +69,14 @@
 			}
 			else {
 				myform.mid.readOnly = true;
-				window.open(url,"nWin","width=440px,height=220px");
+				let x = (window.screen.width/2.2)-(500/2);
+	      let y = (window.screen.height/2.2)-(570/2);
+				window.open(url,"nWin","width=440px,height=220px,left="+x+"px, top="+y+"px");
 			}
 		}
 		function nickCheck() {
 			let nickName = myform.nickName.value;
-			let url = "${ctp}/study2/login/LoginNickCheck?nickName="+nickName;
+			let url = "${ctp}/study2/ajax/friend/FriendNickCheck?nickName="+nickName;
 			
 			if(nickName.trim() == "") {
 				alert("닉네임을 입력하세요!");
@@ -82,7 +84,9 @@
 			}
 			else {
 				myform.nickName.readOnly = true;
-				window.open(url,"nWin","width=440px,height=220px");
+				let x = (window.screen.width/2.2)-(500/2);
+	      let y = (window.screen.height/2.2)-(570/2);
+				window.open(url,"nWin","width=440px,height=220px,left="+x+"px, top="+y+"px");
 			}
 			
 		}
@@ -101,7 +105,7 @@
 <body>
 <p><br/></p>
 <div class="container">
-  <form name="myform" method="post" action="${ctp}/study2/login/LoginJoinOk" class="was-validated">
+  <form name="myform" method="post" action="${ctp}/study2/ajax/friend/FriendInputOk" class="was-validated">
     <h2 class="text-center">회 원 가 입</h2>
     <br/>
     <div class="input-group mb-3">

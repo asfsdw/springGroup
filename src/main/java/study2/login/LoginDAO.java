@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class LoginDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
@@ -142,6 +144,7 @@ public class LoginDAO {
 		return res;
 	}
 
+	// 회원가입.
 	public int setLoginJoinOk(LoginVO vo) {
 		int res = 0;
 		try {
@@ -164,6 +167,7 @@ public class LoginDAO {
 		return res;
 	}
 
+	// 회원 리스트.
 	public List<LoginVO> getLoginList() {
 		List<LoginVO> vos = new ArrayList<LoginVO>();
 		try {
@@ -174,7 +178,6 @@ public class LoginDAO {
 				vo = new LoginVO();
 				vo.setIdx(rs.getInt("idx"));
 				vo.setMid(rs.getString("mid"));
-				vo.setPwd(rs.getString("pwd"));
 				vo.setNickName(rs.getString("nickName"));
 				vo.setName(rs.getString("name"));
 				vo.setAge(rs.getInt("age"));
@@ -190,6 +193,7 @@ public class LoginDAO {
 		return vos;
 	}
 
+	// 회원 수정.
 	public int setMemberUpdate(String mid, String update, String updateValue) {
 		int res = 0;
 		try {
@@ -201,6 +205,69 @@ public class LoginDAO {
 			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL오류(setMemberUpdata)."+e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	// 회원 리스트 Vector.
+	public Vector getLoginListVData() {
+		Vector vData = new Vector();
+		try {
+			sql = "SELECT * FROM friend ORDER BY idx";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Vector vo = new Vector();
+				vo.add(rs.getInt("idx"));
+				vo.add(rs.getString("mid"));
+				vo.add(rs.getString("nickName"));
+				vo.add(rs.getString("name"));
+				vo.add(rs.getInt("age"));
+				vo.add(rs.getString("gender"));
+				vo.add(rs.getString("address"));
+				vData.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL오류(getLoginListVData)."+e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vData;
+	}
+
+	// 회원정보 수정.
+	public int setLoginUpdate(LoginVO vo) {
+		int res = 0;
+		try {
+			sql = "UPDATE friend SET name = ?, age = ?, gender = ?, address = ? WHERE mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getName());
+			pstmt.setInt(2, vo.getAge());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setString(4, vo.getAddress());
+			pstmt.setString(5, vo.getMid());
+			res = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("SQL오류(setLoginJoinOk)~~" + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	public int setFriendDelete(String mid) {
+		int res = 0;
+		try {
+			System.out.println(mid);
+			sql = "DELETE FROM friend WHERE mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			res = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("SQL오류.(setFriendDelete)"+e.getMessage());
 		} finally {
 			pstmtClose();
 		}

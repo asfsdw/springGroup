@@ -10,10 +10,7 @@
     <script>
     	'use strict';
     	
-    	if("${message}" != ""){
-    		alert("${message}");
-    	}
-   		<%-- location.href = "<%=request.getContextPath()%>/study/0806/test10_member.jsp?mid=<%=mid%>"; --%>
+    	if("${message}" != "") alert("${message}");
    		
    		location.href = "${url}";
     </script>

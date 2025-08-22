@@ -1,0 +1,70 @@
+package study2.ajax.friend;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import study2.login.LoginDAO;
+import study2.login.LoginVO;
+
+@SuppressWarnings("serial")
+@WebServlet("/study2/ajax/friend/FriendInputOk")
+public class FriendInputOk extends HttpServlet {
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
+		String pwd = request.getParameter("pwd")==null ? "" : request.getParameter("pwd");
+		String nickName = request.getParameter("nickName")==null ? "" : request.getParameter("nickName");
+		String name = request.getParameter("name")==null ? "" : request.getParameter("name");
+		int age = (request.getParameter("age")==null || request.getParameter("age").equals("")) ? 0 : Integer.parseInt(request.getParameter("age"));
+		String gender = request.getParameter("gender")==null ? "" : request.getParameter("gender");
+		String address = request.getParameter("address")==null ? "" : request.getParameter("address");
+		
+		LoginDAO dao = new LoginDAO();
+		
+		LoginVO voMid = dao.getLoginIDCheck(mid);
+		LoginVO voNickName = dao.getLoginNickCheck(nickName);
+		
+		PrintWriter out = response.getWriter();
+		if(voMid.getMid() != null || voNickName.getNickName() != null) {
+			out.println("<script>");
+			out.println("alert('중복된 정보입니다.\n회원 아이디나 닉네임을 확인하세요');");
+			out.println("location.href='"+request.getContextPath()+"/study2/ajax/friend/FriendInput';");
+			out.println("</script>");
+		}
+		
+		// 비밀번호 암호화.
+		int saltKey = (int)(Math.random()*99999-10001+1)+10001;
+		pwd = (Integer.parseInt(pwd) ^ saltKey)+"";
+		pwd = saltKey+""+pwd;
+		
+		LoginVO vo = new LoginVO();
+		vo.setMid(mid);
+		vo.setPwd(pwd);
+		vo.setNickName(nickName);
+		vo.setName(name);
+		vo.setAge(age);
+		vo.setGender(gender);
+		vo.setAddress(address);
+		
+		int res = dao.setLoginJoinOk(vo);
+		
+		if(res != 0) {
+			out.println("<script>");
+			out.println("alert('회원가입 되셨습니다.');");
+			out.println("window.close();");
+			out.println("</script>");
+		}
+		else {
+			out.println("<script>");
+			out.println("alert('회원가입 실패~~');");
+			out.println("location.href='"+request.getContextPath()+"/study2/ajax/friend/FriendInput';");
+			out.println("</script>");
+		}
+	}
+}

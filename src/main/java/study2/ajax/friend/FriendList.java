@@ -1,7 +1,8 @@
-package study2.login;
+package study2.ajax.friend;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,36 +14,30 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import study2.login.LoginDAO;
+import study2.login.LoginVO;
+
 @SuppressWarnings({"serial","unchecked"})
-@WebServlet("/study2/login/LoginList2")
-public class LoginList2 extends HttpServlet {
+@WebServlet("/study2/ajax/friend/FriendList")
+public class FriendList extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		LoginDAO dao = new LoginDAO();
-//		List<LoginVO> vos = dao.getLoginList();
-		
+		LoginDAO dao = new LoginDAO();
+		List<LoginVO> vos = dao.getLoginList();
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("mid", "snm1234");
-		map.put("nickName", "소장군");
-		map.put("name", "소나무");
-		map.put("age", "66");
-		map.put("gender", "여자");
-		map.put("address", "평양");
-		
 		JSONObject jobj = new JSONObject(map);
 		JSONArray jArray = new JSONArray();
-		jArray.add(jobj);
 		
-		map = new HashMap<String, String>();
-		map.put("mid", "iks1234");
-		map.put("nickName", "이장군");
-		map.put("name", "이기자");
-		map.put("age", "33");
-		map.put("gender", "남자");
-		map.put("address", "서울");
-
-		jobj = new JSONObject(map);
-		jArray.add(jobj);
+		for(LoginVO vo : vos) {
+			map.put("mid", vo.getMid());
+			map.put("nickName", vo.getNickName());
+			map.put("name", vo.getName());
+			map.put("age", vo.getAge()+"");
+			map.put("gender", vo.getGender());
+			map.put("address", vo.getAddress());
+			jobj = new JSONObject(map);
+			jArray.add(jobj);
+		}
 		
 		response.getWriter().write(jArray+"");
 	}

@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 
 @SuppressWarnings("serial")
 @WebServlet("/study2/login/LoginUpdate")
-public class LoginUpdata extends HttpServlet {
+public class LoginUpdate extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mid = request.getParameter("mid") == null ? "" : request.getParameter("mid");

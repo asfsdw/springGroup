@@ -1,4 +1,4 @@
-package study2.login;
+package study2.ajax.friend;
 
 import java.io.IOException;
 
@@ -8,20 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import study2.login.LoginDAO;
+
 @SuppressWarnings("serial")
-@WebServlet("/study2/login/LoginSearch2")
-public class LoginSearch2 extends HttpServlet {
+@WebServlet("/study2/ajax/friend/FriendDelete")
+public class FriendDelete extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mid = request.getParameter("mid") == null ? "" : request.getParameter("mid");
-		
 		LoginDAO dao = new LoginDAO();
-		LoginVO vo = dao.getLoginIDCheck(mid);
+		System.out.println(mid);
+		int res = dao.setFriendDelete(mid);
 		
-		String str = "";
-		if(vo.getMid() == null) str = "찾는 자료가 없습니다.";
-		else str = vo.getIdx()+"/"+vo.getMid()+"/"+vo.getNickName()+"/"+vo.getName()+"/"+vo.getAge()+"/"+vo.getGender()+"/"+vo.getAddress();
-		
-		response.getWriter().write(str);
+		response.getWriter().write(res+"");
 	}
 }
