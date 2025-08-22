@@ -42,8 +42,8 @@ public class GuestController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/include/message";
 		}
-		else if(com.equals("LogOut")) {
-			command = new LogOutCommand();
+		else if(com.equals("Logout")) {
+			command = new LogoutCommand();
 			command.execute(request, response);
 			viewPage = "/include/message";
 		}

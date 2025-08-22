@@ -51,7 +51,8 @@ public class LoginOk extends HttpServlet {
 				
 				out.println("<script>");
 				out.println("alert('"+vo.getName()+"님 로그인에 성공하셨습니다.');");
-				out.println("location.href='"+request.getContextPath()+"/study2/login/LoginMain';");
+//				out.println("location.href='"+request.getContextPath()+"/study2/login/LoginMain';");
+				out.println("location.href='"+request.getContextPath()+"/main';");
 				out.println("</script>");
 			}
 		}

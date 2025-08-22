@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import common.CommonInterface;
 
-public class LogOutCommand implements CommonInterface {
+public class LogoutCommand implements CommonInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -33,6 +33,10 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="#">선택불가메뉴</a>
       </li>
+      <li class="nav-item">
+        <c:if test="${empty sMid}"><a class="nav-link" href="${ctp}/study2/login/Login">로그인</a></c:if>
+        <c:if test="${!empty sMid}"><a class="nav-link" href="${ctp}/study2/login/Logout">로그아웃</a></c:if>
+      </li>
     </ul>
   </div>
 </nav>
