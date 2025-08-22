@@ -35,7 +35,7 @@
       </li>
       <li class="nav-item">
         <c:if test="${empty sMid}"><a class="nav-link" href="${ctp}/study2/login/Login">로그인</a></c:if>
-        <c:if test="${!empty sMid}"><a class="nav-link" href="${ctp}/study2/login/Logout">로그아웃</a></c:if>
+        <c:if test="${!empty sMid}"><a class="nav-link" href="${ctp}/study2/login/Logout?mid=${sMid}">로그아웃</a></c:if>
       </li>
     </ul>
   </div>

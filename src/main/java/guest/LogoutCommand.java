@@ -14,7 +14,7 @@ public class LogoutCommand implements CommonInterface {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.removeAttribute("sAdmin");
+		session.removeAttribute("sMid");
 		request.setAttribute("message", "로그아웃되었습니다.");
 		request.setAttribute("url", "GuestList.guest");
 	}
