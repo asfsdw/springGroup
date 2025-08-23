@@ -90,4 +90,44 @@ public class GuestDAO {
 		}
 		return res;
 	}
+	public GuestVO setGuestSearch(int idx) {
+		vo = new GuestVO();
+		try {
+			sql = "SELECT * FROM guest WHERE idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo.setIdx(rs.getInt("idx"));
+				vo.setName(rs.getString("name"));
+				vo.setContent(rs.getString("content"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setvDate(rs.getString("vDate"));
+				vo.setHostIP(rs.getString("hostIP"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL에러.(setGuestSearch)"+e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vo;
+	}
+	public int setUpdateGuest(GuestVO vo) {
+		int res = 0;
+		try {
+			sql = "UPDATE guest SET content = ?, email = ?, homePage = ? WHERE idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getContent());
+			pstmt.setString(2, vo.getEmail());
+			pstmt.setString(3, vo.getHomePage());
+			pstmt.setInt(4, vo.getIdx());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL에러.(setUpdateGuest)"+e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
 }

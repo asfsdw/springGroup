@@ -48,6 +48,7 @@ public class LoginOk extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("sMid", mid);
 				session.setAttribute("sNickName", vo.getNickName());
+				if(vo.getMid().equals("admin")) session.setAttribute("sAdmin", "adminOK"); 
 				
 				out.println("<script>");
 				out.println("alert('"+vo.getName()+"님 로그인에 성공하셨습니다.');");

@@ -14,10 +14,93 @@
 		<title>방명록</title>
 		<script>
 			'use strict';
-			
+			// 방명록 수정폼 추가.
+			function guestUpdate(idx) {
+				$.ajax({
+					// idx로 회원 찾기.
+					url : "GuestSearch.guest",
+					type : "POST",
+					data : {"idx" : idx},
+					success : (res) => {
+						if(res == "-1") alert("방명록을 찾을 수 없습니다.");
+						else {
+							// 찾아온 회원 정보 배열로 분리 후, 수정폼에 세팅.
+							let str = res.split("／"); // 0닉네임 1날짜 2이메일 3홈페이지 4내용
+							let updateTable = "";
+							updateTable += '<table class="table table-borderd">';
+							updateTable += '<tr>';
+							updateTable += '<th>방문자</th>';
+							updateTable += '<td id="name">'+str[0]+'</td>';
+							updateTable += '<th>방문일자</th>';
+							updateTable += '<td colspan="3" id="vDate">'+str[1]+'</td>';
+							updateTable += '</tr>';
+							updateTable += '<tr>';
+							updateTable += '<th>이메일</th>';
+							updateTable += '<td colspan="3"><input type="text" id="email" value="'+str[2]+'" class="form-control" /></td>';
+							updateTable += '</tr>';
+							updateTable += '<tr>';
+							updateTable += '<th>홈페이지</th>';
+							// https:// 유무 처리.
+							if(str[3].indexOf("https://") == -1) {
+								updateTable += '<td colspan="3"><input type="text" id="homePage" value="https://'+str[3]+'" class="form-control" /></td>';
+							}
+							else updateTable += '<td colspan="3"><input type="text" id="homePage" value="'+str[3]+'" class="form-control" /></td>';
+							updateTable += '</tr>';
+							updateTable += '<tr>';
+							updateTable += '<th>방문소감</th>';
+							updateTable += '<td colspan="3" style="height:150px">';
+							updateTable += '<textarea rows="5" name="content" id="content" required class="form-control">'+str[4]+'</textarea></td>';
+							updateTable += '</td>';
+							updateTable += '</tr>';
+							updateTable += '</table>';
+							updateTable += '<div class="row text-center">';
+							updateTable += '<span class="col"></span>';
+							updateTable += '<input type="button" name="updateBtn" value="수정" onclick="updateGuest(1)" class="col btn btn-success" />';
+							updateTable += '<span class="col"></span>';
+							updateTable += '<input type="button" name="cancleBtn" value="취소" onclick="updateGuest(2)" class="col btn btn-warning" />';
+							updateTable += '<span class="col"></span>';
+							updateTable += '</div>';
+							updateTable += '<p><br/></p>';
+							updateTable += '<input type="hidden" id="idx" value="'+idx+'"/>';
+							$("#"+idx+"demo").html(updateTable);
+						}
+					},
+					error : () => alert("전송오류")
+				});
+			}
+			// 실제 방명록 수정 메소드.
+			function updateGuest(flag) {
+				// 취소 눌렀을 시.
+				if(flag == 2) location.reload();
+				// 수정 눌렀을 시.
+				else if(flag == 1) {
+					// 수정에 필요한 정보를 추가한 폼에서 가져온다.
+					let idx = $("#idx").val();
+					let email = $("#email").val();
+					let homePage = $("#homePage").val();
+					let content = $("#content").val();
+					// ajax로 보내기 위해 키:밸류 형식으로 담는다.
+					let query = {
+						"idx" : idx,
+						"email" : email,
+						"homePage" : homePage,
+						"content" : content
+					};
+					$.ajax({
+						url : "UpdateGuest.guest",
+						type : "GET",
+						data : query,
+						success : (res) => {
+							alert(res);
+							location.reload();
+						},
+						error : () => alert("전송오류")
+					});
+				}
+			}
+			// 방명록 삭제.
 			function guestDelete(idx) {
 				let ans = confirm("정말로 삭제하시겠습니까?");
-				
 				if(!ans) return false;
 				
 				$.ajax({
@@ -27,7 +110,7 @@
 					success : (res) => {
 						if(res != "0") alert("방명록이 삭제되었습니다.");
 						else alert("방명록 삭제에 실패했습니다.");
-						location.reload();
+						location.href="GuestList.guest";
 					},
 					error : () => alert("전송오류")
 				});
@@ -58,12 +141,12 @@
 		</table>
 		<hr/>
 		<c:forEach var="vo" items="${vos}" varStatus="st">
+			<div id="${vo.idx}demo"></div>
 			<table class="table table-borderless m-0 p-0">
 				<tr>
 					<td>번호: ${vo.idx} &nbsp&nbsp
-						<c:if test="${sAdmin == 'adminOK'}"><a href="javascript:guestDelete(${vo.idx})" class="btn btn-danger btn-sm">삭제</a></c:if>
-						<c:if test="${sAdmin != 'adminOK' && sNickName == vo.name}">
-							<a href="javascript:guestDelete(${vo.idx})" class="btn btn-info btn-sm">수정</a>
+						<c:if test="${sAdmin == 'adminOK' || sNickName == vo.name}">
+							<a href="javascript:guestUpdate(${vo.idx})" class="btn btn-info btn-sm">수정</a>
 							<a href="javascript:guestDelete(${vo.idx})" class="btn btn-danger btn-sm">삭제</a>
 						</c:if>
 					</td>
@@ -86,10 +169,14 @@
 				</tr>
 				<tr>
 					<th>홈페이지</th>
-					<td colspan="3"><%-- <a href="${vo.homePage}" target="_black">${vo.homePage}</a> --%>
+					<td colspan="3">
 						<c:if test="${empty vo.homePage || fn:length(vo.homePage) < 11 || fn:indexOf(vo.homePage, '.') == -1}"> - 없음 -</c:if>
-						<c:if test="${!empty vo.homePage && fn:length(vo.homePage) >= 11 && fn:indexOf(vo.homePage, '.') != -1 && fn:indexOf(vo.homePage, 'https://') == -1}"><a href="https://${vo.homePage}" target="_blank">https://${vo.homePage}</a></c:if>
-						<c:if test="${!empty vo.homePage && fn:length(vo.homePage) >= 11 && fn:indexOf(vo.homePage, '.') != -1 && fn:indexOf(vo.homePage, 'https://') != -1}"><a href="${vo.homePage}" target="_blank">${vo.homePage}</a></c:if>
+						<c:if test="${!empty vo.homePage && fn:length(vo.homePage) >= 11 && fn:indexOf(vo.homePage, '.') != -1 && fn:indexOf(vo.homePage, 'https://') == -1}">
+							<a href="https://${vo.homePage}" target="_blank">https://${vo.homePage}</a>
+						</c:if>
+						<c:if test="${!empty vo.homePage && fn:length(vo.homePage) >= 11 && fn:indexOf(vo.homePage, '.') != -1 && fn:indexOf(vo.homePage, 'https://') != -1}">
+							<a href="${vo.homePage}" target="_blank">${vo.homePage}</a>
+						</c:if>
 					</td>
 				</tr>
 				<tr>
