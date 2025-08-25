@@ -14,8 +14,11 @@
 			// 게시글 x개 표시하기.
 			$(() => {
 				$("#viewPageCnt").on("change", () => {
+					let startIndexNo = ${startIndexNo};
 					let pageSize = $("#viewPageCnt").val();
-					location.href="BoardList.board?pageSize="+pageSize;
+					// 페이지 도중에 바꿨을 때, 가장 위에 글 유지한 채로 표시 수만 바꾸기.
+					let pag = Math.ceil(startIndexNo / pageSize) + 1;
+					location.href="BoardList.board?pag="+pag+"&pageSize="+pageSize;
 				});
 			});
 		</script>
