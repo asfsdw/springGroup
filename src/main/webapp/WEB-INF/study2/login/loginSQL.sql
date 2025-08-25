@@ -17,3 +17,4 @@ CREATE TABLE friend (
 );
 
 INSERT INTO friend VALUES (DEFAULT, 'admin', '1234', '관리맨', '관리자', 33, '남자', '서울');
+UPDATE friend SET name = '오하늘' WHERE mid = 'ohn1234';

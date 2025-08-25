@@ -1,4 +1,4 @@
-package guest;
+package board;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,32 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.CommonInterface;
 
-public class GuestListCommand implements CommonInterface {
+public class BoardListCommand implements CommonInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		GuestDAO dao = new GuestDAO();
-		// 1. 사용자가 보려는 페이지.
+		BoardDAO dao = new BoardDAO();
 		int pag = (request.getParameter("pag") == null || request.getParameter("pag") == "") ? 1 : Integer.parseInt(request.getParameter("pag"));
-		// 2. 한 페이지에 출력할 갯수.
-		int pageSize = (request.getParameter("pageSize") == null || request.getParameter("pageSize") == "") ? 3 : Integer.parseInt(request.getParameter("pageSize"));
-		// 3. 총 레코드의 수.
+		int pageSize = (request.getParameter("pageSize") == null || request.getParameter("pageSize") == "") ? 10 : Integer.parseInt(request.getParameter("pageSize"));
 		int totRecCnt = dao.getTotRecCnt();
-		// 4. 총 페이지의 수.
 		int totPage = (int)Math.ceil((double)totRecCnt/pageSize);
-		// 5. 페이지의 가장 위에 보여주는 레코드의 번호.
-		int startIndexNo = (pag-1) * pageSize;
-		// 6. 페이지의 가장 위에 보여주는 실제 idx.
+		int startIndexNo = (pag - 1) * pageSize;
 		int curScrStartNo = totRecCnt - startIndexNo;
-		
-		// 7. 블록 사이즈
-		int blockSize = (request.getParameter("blockSize") == null || request.getParameter("blockSize") == "") ? 3 : Integer.parseInt(request.getParameter("blockSize"));
-		// 8. 현재 페이지가 속한 블록
+		int blockSize = 3;
 		int curBlock = (pag - 1) / blockSize;
-		// 9. 마지막 블록
 		int lastBlock = (totPage - 1) / blockSize;
 		
-		List<GuestVO> vos = dao.getGuestList(startIndexNo, pageSize);
+		List<BoardVO> vos = dao.getBoardList(startIndexNo, pageSize);
 		request.setAttribute("vos", vos);
 		
 		request.setAttribute("pag", pag);

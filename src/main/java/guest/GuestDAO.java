@@ -13,13 +13,13 @@ public class GuestDAO {
 	private Connection conn = GetConn.getConn();
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
-	String sql = "";
+	private String sql = "";
 	GuestVO vo = null;
 	
 	public void pstmtClose() {
 		if(pstmt != null) {
 			try {
-				pstmt.cancel();
+				pstmt.close();
 			} catch (SQLException e) {}
 		}
 	}
@@ -32,11 +32,13 @@ public class GuestDAO {
 		}
 	}
 	// 방명록 목록
-	public List<GuestVO> getGuestList() {
+	public List<GuestVO> getGuestList(int startIndexNo, int pageSize) {
 		List<GuestVO> vos = new ArrayList<GuestVO>();
 		try {
-			sql = "SELECT * FROM guest ORDER BY idx DESC";
+			sql = "SELECT * FROM guest ORDER BY idx DESC LIMIT ?,?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new GuestVO();
@@ -90,6 +92,7 @@ public class GuestDAO {
 		}
 		return res;
 	}
+	// 방명록 찾기
 	public GuestVO setGuestSearch(int idx) {
 		vo = new GuestVO();
 		try {
@@ -113,6 +116,7 @@ public class GuestDAO {
 		}
 		return vo;
 	}
+	// 방명록 삭제
 	public int setUpdateGuest(GuestVO vo) {
 		int res = 0;
 		try {
@@ -127,6 +131,21 @@ public class GuestDAO {
 			System.out.println("SQL에러.(setUpdateGuest)"+e.getMessage());
 		} finally {
 			pstmtClose();
+		}
+		return res;
+	}
+	// 총 레코드 갯수
+	public int getTotRecCnt() {
+		int res = 0;
+		try {
+			sql = "SELECT COUNT(*) AS cnt FROM guest";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) res=rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL에러.(getTotRecCnt)"+e.getMessage());
+		} finally {
+			rsClose();
 		}
 		return res;
 	}

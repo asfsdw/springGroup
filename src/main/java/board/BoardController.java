@@ -1,4 +1,4 @@
-package study2.mapping;
+package board;
 
 import java.io.IOException;
 
@@ -10,44 +10,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import common.CommonInterface;
+
 @SuppressWarnings("serial")
-@WebServlet("*.test5")
-public class Extension5Controller extends HttpServlet {
+@WebServlet("*.board")
+public class BoardController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Extension4Interface command = null;
-		String uri = request.getRequestURI();
-		String com = uri.substring(uri.lastIndexOf("/")+1, uri.lastIndexOf("."));
-		String viewPage = "/WEB-INF/study2/mapping/";
-		
+		CommonInterface command = null;
+		String com = request.getRequestURI();
+		com = com.substring(com.lastIndexOf("/")+1, com.lastIndexOf("."));
+		String viewPage = "/WEB-INF/board/";
 		HttpSession session = request.getSession();
 		String mid = (String)session.getAttribute("sMid");
+		
 		if(mid == null) {
 			request.setAttribute("message", "로그인 후 사용해주세요.");
 			request.setAttribute("url", request.getContextPath()+"/study2/login/Login");
 			viewPage = "/include/message";
 		}
-		else if(com.equals("Home5")) {
-			command = new Home5Command();
+		else if(com.equals("BoardList")) {
+			command = new BoardListCommand();
 			command.execute(request, response);
-			viewPage += "home5";
+			viewPage += "boardList";
 		}
-		else if(com.equals("Guest5")) {
-			command = new Guest5Command();
+		else if(com.equals("BoardInput")) {
+			viewPage += "boardInput";
+		}
+		else if(com.equals("BoardInputOk")) {
+			command = new BoardInputOkCommand();
 			command.execute(request, response);
-			viewPage += "guest5";
+			viewPage = "/include/message";
 		}
-		else if(com.equals("Board5")) {
-			command = new Board5Command();
-			command.execute(request, response);
-			viewPage += "board5";
-		}
-		else if(com.equals("PDS5")) {
-			command = new PDS5Command();
-			command.execute(request, response);
-			viewPage += "pds5";
-		}
-		else viewPage += "extension5";
 		viewPage += ".jsp";
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

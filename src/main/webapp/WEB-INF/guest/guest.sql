@@ -1,7 +1,11 @@
 show tables;
 DESC guest;
 SELECT * FROM guest;
+SELECT * FROM guest LIMIT 0,5;
+SELECT * FROM guest LIMIT 5,5;
+
 DROP TABLE guest;
+SELECT COUNT(*) AS cnt FROM guest;
 
 CREATE TABLE guest (
 	idx INT NOT NULL auto_increment PRIMARY KEY,	/*방명록 고유번호*/

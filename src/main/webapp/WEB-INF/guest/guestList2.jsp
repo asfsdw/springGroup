@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<jsp:include page="/include/bs5.jsp" />
-		<title>방명록_일반</title>
+		<title>방명록_페이징처리</title>
 		<script>
 			'use strict';
 			// 방명록 수정폼 추가.
@@ -132,21 +132,10 @@
 		<p><br/></p>
 		<table class="table table-borderless m-0 p-0">
 			<tr>
-				<td class="text-start">
-					<a href="GuestInput.guest" class="btn btn-success btn-sm">글쓰기</a>
+				<td><a href="GuestInput.guest" class="btn btn-success btn-sm">글쓰기</a></td>
+				<td class="text-end">
 					<c:if test="${sAdmin != 'adminOK'}"><a href="Admin.guest" class="btn btn-primary btn-sm">관리자</a></c:if>
 					<c:if test="${sAdmin == 'adminOK'}"><a href="LogOut.guest" class="btn btn-warning btn-sm">로그아웃</a></c:if>
-				</td>
-				<td class="text-end">
-					<c:if test="${pag > 1}">
-						<a href="GuestList.guest?pag=1" class="text-decoration-none text-dark">◁</a>
-						<a href="GuestList.guest?pag=${pag-1}" class="text-decoration-none text-dark">◀</a>
-					</c:if>
-					${pag}/${totPage}
-					<c:if test="${pag < totPage}">
-						<a href="GuestList.guest?pag=${pag+1}" class="text-decoration-none text-dark">▶</a>
-						<a href="GuestList.guest?pag=${totPage}" class="text-decoration-none text-dark">▷</a>
-					</c:if>
 				</td>
 			</tr>
 		</table>
@@ -156,7 +145,7 @@
 			<table class="table table-borderless m-0 p-0">
 				<tr>
 					<%-- <td>번호: ${vo.idx} &nbsp&nbsp --%>
-					<td>번호: ${curScrStartNo} &nbsp;&nbsp;
+					<td>번호: ${totRecCnt-st.index} &nbsp&nbsp
 						<c:if test="${sAdmin == 'adminOK' || sNickName == vo.name}">
 							<a href="javascript:guestUpdate(${vo.idx})" class="btn btn-info btn-sm">수정</a>
 							<a href="javascript:guestDelete(${vo.idx})" class="btn btn-danger btn-sm">삭제</a>
@@ -197,24 +186,7 @@
 				</tr>
 			</table>
 			<br/>
-			<c:set var="curScrStartNo" value="${curScrStartNo - 1}" />
 		</c:forEach>
-		<!-- 블록페이지 시작 -->
-		<div class="text-center pagination">
-			<c:if test="${pag > 1}"><a href="GuestList.guest?pag=1" class="page-item page-link">첫 페이지</a></c:if>
-			<c:if test="${curBlock > 0}"><a href="GuestList.guest?pag=${(curBlock - 1) * blockSize + 1}" class="page-item page-link">이전 블록</a></c:if>
-			<c:forEach var="i" begin="${(curBlock * blockSize) + 1}" end="${(curBlock * blockSize) + blockSize}" varStatus="st">
-				<c:if test="${i <= totPage && i == pag}">
-					<span class="page-item active page-link">${i}</span>
-				</c:if>
-				<c:if test="${i <= totPage && i != pag}">
-					<a href="GuestList.guest?pag=${i}" class="page-item page-link">${i}</a>
-				</c:if>
-			</c:forEach>
-			<c:if test="${curBlock < lastBlock}"><a href="GuestList.guest?pag=${(curBlock + 1) * blockSize + 1}" class="page-item page-link">다음 블록</a></c:if>
-			<c:if test="${pag < totPage}"><a href="GuestList.guest?pag=${totPage}" class="page-item page-link">마지막 페이지</a></c:if>
-		</div>
-		<!-- 블록페이지 끝 -->
 	</div>
 	<p><br/></p>
 	<jsp:include page="/include/footer.jsp" />
