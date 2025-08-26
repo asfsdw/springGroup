@@ -99,4 +99,58 @@ public class BoardDAO {
 		}
 		return res;
 	}
+	public BoardVO getBoardContent(int idx) {
+		try {
+			sql = "SELECT * FROM board WHERE idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo = new BoardVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setHostIP(rs.getString("hostIP"));
+				vo.setOpenSW(rs.getString("openSW"));
+				vo.setReadNum(rs.getInt("readNum"));
+				vo.setGood(rs.getInt("good"));
+				vo.setwDate(rs.getString("wDate"));
+				vo.setComplaint(rs.getString("complaint"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL에러.(getBoardContent)"+e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vo;
+	}
+	public void setBoardReadNumPlus(int idx) {
+		try {
+			sql = "UPDATE board SET readNum = readNum + 1 WHERE idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL에러.(setBoardReadNumPlus)"+e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
+	public int setBoardGoodCheck(int idx, int goodCnt) {
+		int res = 0;
+		try {
+			sql = "UPDATE board SET good = good + ? WHERE idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, goodCnt);
+			pstmt.setInt(2, idx);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL에러.(setBoardGoodCheck)"+e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
 }

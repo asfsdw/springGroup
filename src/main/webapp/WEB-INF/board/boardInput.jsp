@@ -46,7 +46,7 @@
 				</tr>
 			</table>
 			<input type="hidden" name="mid" value="${sMid}" />
-			<input type="hidden" name="hostIP" value="${pagecontext.request.remoteAddr}" />
+			<input type="hidden" name="hostIP" value="${pageContext.request.remoteAddr}" />
 		</form>
 	</div>
 	<p><br/></p>
