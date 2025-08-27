@@ -7,7 +7,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<jsp:include page="/include/bs5.jsp" />
-		<title>게시글 작성</title>
+		<title>게시글 수정</title>
 	</head>
 <body>
 	<jsp:include page="/include/header.jsp" />
@@ -16,38 +16,41 @@
 	<div class="container">
 		<h2 class="text-center">글쓰기</h2>
 		<p><br/></p>
-		<form name="myform" method="post" action="BoardInputOk.board" class="was-validated">
+		<form name="myform" method="post" action="BoardUpdateOk.board" class="was-validated">
 			<table class="table table-bordered">
 				<tr>
 					<th>글쓴이</th>
-					<td><input type="text" name="nickName" id="nickName" value="${sNickName}" readonly class="form-control" /></td>
+					<td><input type="text" name="nickName" id="nickName" value="${vo.nickName}" readonly class="form-control" /></td>
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="title" id="title" value="" placeholder="제목을 입력해주세요." required class="form-control" /></td>
+					<td><input type="text" name="title" id="title" value="${vo.title}" placeholder="제목을 입력해주세요." required class="form-control" /></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea rows="6" name="content" id="content" placeholder="내용을 입력해주세요." required class="form-control"></textarea></td>
+					<td><textarea rows="6" name="content" id="title" placeholder="내용을 입력해주세요." required class="form-control">${vo.content}</textarea></td>
 				</tr>
 				<tr>
 					<th>공개여부</th>
 					<td>
-						<input type="radio" name="openSW" id="openOK" value="OK" checked />공개 &nbsp;&nbsp;
-						<input type="radio" name="openSW" id="openNO" value="NO" />비공개
+						<input type="radio" name="openSW" id="openOK" value="OK" ${vo.openSW == 'OK' ? 'checked' : ''} />공개 &nbsp;&nbsp;
+						<input type="radio" name="openSW" id="openNO" value="NO" ${vo.openSW == 'NO' ? 'checked' : ''} />비공개
 					</td>
 				</tr>
 			</table>
 			<table class="table table-borderless">
 				<tr>
 					<td colspan="2" class="text-center">
-						<input type="submit" value="글올리기" class="btn btn-success me-2" />
+						<input type="submit" value="수정하기" class="btn btn-success me-2" />
 						<input type="reset" value="다시입력" class="btn btn-warning me-2" />
-						<input type="button" value="돌아가기" onclick="location.href='BoardList.board';" class="btn btn-danger" />
+						<input type="button" value="돌아가기" onclick="location.href='BoardContent.board?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}';" class="btn btn-danger" />
 					</td>
 				</tr>
 			</table>
 			<input type="hidden" name="mid" value="${sMid}" />
+			<input type="hidden" name="idx" value="${vo.idx}" />
+			<input type="hidden" name="pag" value="${pag}" />
+			<input type="hidden" name="pageSize" value="${pageSize}" />
 			<input type="hidden" name="hostIP" value="${pageContext.request.remoteAddr}" />
 		</form>
 	</div>

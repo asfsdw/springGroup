@@ -149,7 +149,7 @@ SELECT now(), to_days(now()) - to_days('2025-8-1');
 SELECT name, ipsail, to_days(now()) - to_days(ipsail) AS 입사경과일 FROM insa;
 
 SELECT datediff(now(), '2025-8-1');
-SELECT name, ipsail, datediff(now(), ipsail) AS 입사경과일 FROM insa;
+SELECT wDate, datediff(now(), wDate) AS 게시글올린시간 FROM board;
 
 SELECT timediff(now(), '2025-8-26 9:20');
 

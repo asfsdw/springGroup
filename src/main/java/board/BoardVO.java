@@ -12,6 +12,9 @@ public class BoardVO {
 	private int good;
 	private String wDate;
 	private String complaint;
+	
+	private int hourDiff;	// 새글 알림을 위해 24시간인지 확인하기 위한 변수.
+	private int dateDiff;	// 날짜 출력을 위해 0, 1, …출력.
 
 	public int getIdx() {
 		return idx;
@@ -79,11 +82,23 @@ public class BoardVO {
 	public void setComplaint(String complaint) {
 		this.complaint = complaint;
 	}
+	public int getHourDiff() {
+		return hourDiff;
+	}
+	public void setHourDiff(int hourDiff) {
+		this.hourDiff = hourDiff;
+	}
+	public int getDateDiff() {
+		return dateDiff;
+	}
+	public void setDateDiff(int dateDiff) {
+		this.dateDiff = dateDiff;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", content="
-				+ content + ", hostIP=" + hostIP + ", openSW=" + openSW + ", readNum=" + readNum + ", wDate=" + wDate
-				+ ", good=" + good + ", complaint=" + complaint + "]";
+				+ content + ", hostIP=" + hostIP + ", openSW=" + openSW + ", readNum=" + readNum + ", good=" + good + ", wDate="
+				+ wDate + ", complaint=" + complaint + ", hourDiff=" + hourDiff + ", dateDiff=" + dateDiff + "]";
 	}
 }
