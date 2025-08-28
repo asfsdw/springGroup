@@ -20,11 +20,10 @@ public class LoginOk extends HttpServlet {
 		
 		String mid = request.getParameter("mid") == null ? "" : request.getParameter("mid");
 		String pwd = request.getParameter("pwd") == null ? "" : request.getParameter("pwd");
-
+		
 		// DB에서 아이디와 비밀번호 일치하는지 확인.
 		LoginDAO dao = new LoginDAO();
 		LoginVO vo = dao.getLoginIDCheck(mid);
-		
 		
 		if(vo.getMid() != null) {
 			// 아이디가 admin이 아닐경우 pwd ^ saltKey 로 DB에 저장된 비밀번호 비교.

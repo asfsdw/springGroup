@@ -15,6 +15,7 @@ public class BoardVO {
 	
 	private int hourDiff;	// 새글 알림을 위해 24시간인지 확인하기 위한 변수.
 	private int dateDiff;	// 날짜 출력을 위해 0, 1, …출력.
+	private int replyCnt; // 게시글의 달린 댓글 갯수 가져오는 변수.
 
 	public int getIdx() {
 		return idx;
@@ -94,11 +95,18 @@ public class BoardVO {
 	public void setDateDiff(int dateDiff) {
 		this.dateDiff = dateDiff;
 	}
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", content="
 				+ content + ", hostIP=" + hostIP + ", openSW=" + openSW + ", readNum=" + readNum + ", good=" + good + ", wDate="
-				+ wDate + ", complaint=" + complaint + ", hourDiff=" + hourDiff + ", dateDiff=" + dateDiff + "]";
+				+ wDate + ", complaint=" + complaint + ", hourDiff=" + hourDiff + ", dateDiff=" + dateDiff + ", replyCnt="
+				+ replyCnt + "]";
 	}
 }

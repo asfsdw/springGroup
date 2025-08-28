@@ -99,6 +99,48 @@
 					});
 				}
 			}
+			// 댓글 수정.
+			function replyUpdate(replyIdx) {
+				let str = "";
+				str += '<td colspan="4" id="demo${replyVO.idx}">';
+				str += '<table class="table">';
+				str += '<tr>';
+				str += '<td colspan="2">';
+				str += '<textarea rows="4" name="content'+replyIdx+'" id="content'+replyIdx+'" class="form-control"></textarea>';
+				str += '</td>';
+				str += '<tr>';
+				str += '<td>';
+				str += '<span>작성자: ${sNickName}</span>';
+				str += '</td>';
+				str += '<td class="text-end">';
+				str += '<span><input type="button" value="댓글수정" id="replyUpdateOk" class="btn btn-warning btn-sm" /></span>';
+				str += '</td>';
+				str += '</tr>';
+				str += '</table>';
+				str += '</td>';
+				$("#demo"+replyIdx).html(str);
+				$(() => {
+					$("#replyUpdateOk").on("click", () => {
+						let query = {
+							"replyIdx" : replyIdx,
+							"replyContent" : $("#content"+replyIdx).val()
+						};
+						$.ajax({
+							url : "BoardReplyUpdate.board",
+							type : "POST",
+							data : query,
+							success : (res) => {
+								if(res != 0) {
+									alert("댓글이 수정되었습니다.");
+									location.reload();
+								}
+								else alert("댓글 수정에 실패했습니다.");
+							},
+							error : () => alert("전송오류")
+						});
+					});
+				});
+			}
 		</script>
 	</head>
 <body>
@@ -172,14 +214,17 @@
 			<c:forEach var="replyVO" items="${replyVOS}" varStatus="st">
 				<tr>
 					<td>${replyVO.nickName}
-						<c:if test="${mid == sMid || sAdmin == 'adminOK'}">
-							<a href="javascript:replyDelete(${replyVO.idx})" class="text-decoration-none">🗑️</a>
+						<c:if test="${replyVO.nickName == sNickName || sAdmin == 'adminOK'}">
+							<a href="javascript:replyDelete(${replyVO.idx})" title="삭제" class="text-decoration-none">🗑️</a>
+							<a href="javascript:replyUpdate(${replyVO.idx})" title="수정" class="text-decoration-none">✏️</a>
 						</c:if>
 					</td>
 					<td>${fn:replace(replyVO.content, newLine, "<br/>")}</td>
 					<td>${replyVO.wDate}</td>
 					<td>${replyVO.hostIP}</td>
 					<c:if test="${sMid == replyVO.mid}"><a href="javascript:replyDelete(${replyVO.idx})" title="삭제"></a></c:if>
+				</tr>
+				<tr id="demo${replyVO.idx}">
 				</tr>
 			</c:forEach>
 		</table>

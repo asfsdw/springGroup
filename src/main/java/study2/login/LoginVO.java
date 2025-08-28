@@ -10,6 +10,8 @@ public class LoginVO {
 	private String gender;
 	private String address;
 	
+	private String photo;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -58,10 +60,16 @@ public class LoginVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 	@Override
 	public String toString() {
-		return "loginVO [idx=" + idx + ", mid=" + mid + ", pwd=" + pwd + ", nickName=" + nickName + ", name=" + name
-				+ ", age=" + age + ", gender=" + gender + ", address=" + address + "]";
+		return "LoginVO [idx=" + idx + ", mid=" + mid + ", pwd=" + pwd + ", nickName=" + nickName + ", name=" + name
+				+ ", age=" + age + ", gender=" + gender + ", address=" + address + ", photo=" + photo + "]";
 	}
 }

@@ -52,3 +52,6 @@ CREATE TABLE boardReply (
 
 INSERT INTO boardReply VALUES(DEFAULT, 1, 'hkd1234', '홍장군', '댓글 연습입니다.',DEFAULT, '192.168.50.53');
 INSERT INTO boardReply VALUES(DEFAULT, 1, 'ohn1234', '하늘', '댓글 연습입니다.',DEFAULT, '192.168.50.53');
+
+SELECT * FROM boardReply WHERE boardIdx = 24;
+SELECT *, timestampdiff(hour, wDate, now()) AS hourDiff, datediff(now(), wDate) AS dateDiff, (SELECT count(idx) FROM boardReply WHERE boardIdx = board.idx) AS replyCnt FROM board ORDER BY idx DESC LIMIT 0,10; 

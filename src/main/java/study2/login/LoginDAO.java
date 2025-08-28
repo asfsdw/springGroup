@@ -126,7 +126,7 @@ public class LoginDAO {
 	public int getLoginJoin(String mid, String pwd, String nickName, String name, int age, String gender, String address) {
 		int res = 0;
 		try {
-			sql = "INSERT INTO friend VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+			sql = "INSERT INTO friend VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, DEFAULT)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			pstmt.setString(2, pwd);
@@ -148,7 +148,7 @@ public class LoginDAO {
 	public int setLoginJoinOk(LoginVO vo) {
 		int res = 0;
 		try {
-			sql = "insert into friend values (default,?,?,?,?,?,?,?)";
+			sql = "insert into friend values (default,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMid());
 			pstmt.setString(2, vo.getPwd());
@@ -157,8 +157,9 @@ public class LoginDAO {
 			pstmt.setInt(5, vo.getAge());
 			pstmt.setString(6, vo.getGender());
 			pstmt.setString(7, vo.getAddress());
-			res = pstmt.executeUpdate();
 			
+			pstmt.setString(8, vo.getPhoto());
+			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL오류(setLoginJoinOk)~~" + e.getMessage());
 		} finally {
@@ -183,6 +184,8 @@ public class LoginDAO {
 				vo.setAge(rs.getInt("age"));
 				vo.setGender(rs.getString("gender"));
 				vo.setAddress(rs.getString("address"));
+				
+				vo.setPhoto(rs.getString("photo"));
 				vos.add(vo);
 			}
 		} catch (SQLException e) {
@@ -258,6 +261,7 @@ public class LoginDAO {
 		return res;
 	}
 
+	// 회원 삭제.
 	public int setFriendDelete(String mid) {
 		int res = 0;
 		try {
@@ -268,6 +272,23 @@ public class LoginDAO {
 			res = pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("SQL오류.(setFriendDelete)"+e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	// 프로필 사진 입력.
+	public int setPhotoOk(LoginPhotoVO photoVO) {
+		int res = 0;
+		try {
+			sql = "INSERT INTO photo VALUES(DEFAULT, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, photoVO.getOriginName());
+			pstmt.setString(2, photoVO.getServerName());
+			res = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("SQL오류.(setPhotoOk)"+e.getMessage());
 		} finally {
 			pstmtClose();
 		}

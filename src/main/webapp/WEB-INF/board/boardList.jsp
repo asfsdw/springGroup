@@ -53,13 +53,15 @@
 								<a href="BoardContent.board?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}"
 									class="text-primary link-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
 									<c:if test="${sAdmin == 'adminOK'}"><font color="red">(비밀글) </font></c:if>${vo.title}
+									<c:if test="${vo.replyCnt != 0}">(${vo.replyCnt})</c:if>
 								</a>
 							</c:if>
 							<c:if test="${vo.mid != sMid && sAdmin != 'adminOK'}">비밀글입니다.</c:if>
 						</c:if>
 						<c:if test="${vo.openSW != 'NO'}">
 							<a href="BoardContent.board?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}"
-								class="text-primary link-secondary link-underline-opacity-0 link-underline-opacity-100-hover">${vo.title}</a>
+								class="text-primary link-secondary link-underline-opacity-0 link-underline-opacity-100-hover">${vo.title}
+								<c:if test="${vo.replyCnt != 0}">(${vo.replyCnt})</c:if></a>
 						</c:if>
 						<c:if test="${vo.hourDiff <= 24}"><img src="${ctp}/images/new.gif" /></c:if>
 					</td>

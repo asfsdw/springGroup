@@ -8,14 +8,18 @@
 				<a class="nav-link active" href="http://192.168.50.53:9090/springGroup">HOME</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="${ctp}/guest/GuestList.guest">방명록(Guest)</a>
+				<a class="nav-link" href="GuestList.guest">방명록(Guest)</a>
 			</li>
 			<c:if test="${!empty sMid}">
 				<li class="nav-item">
-					<a class="nav-link" href="${ctp}/board/BoardList.board">게시판(Board)</a>
+					<a class="nav-link" href="BoardList.board">게시판(Board)</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">자료실(PDS)</a>
+					<!-- Posting Data System -->
+					<a class="nav-link" href="PDS.pds">자료실(PDS)</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${ctp}/study2/login/LoginInfo">회원정보</a>
 				</li>
 				<li class="nav-item">
 					<div class="dropdown">
@@ -28,6 +32,8 @@
 							<li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension3.test3">확장자매핑 연습3</a></li>
 							<li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension4.test4">확장자매핑 연습4</a></li>
 							<li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension5.test5">확장자매핑 연습5</a></li>
+							<li><a class="dropdown-item" href="UUID.study">UUID연습</a></li>
+							<li><a class="dropdown-item" href="FileUpload.study">파일 업로드 연습(COS라이브러리)</a></li>
 						</ul>
 					</div>
 				</li>

@@ -53,7 +53,10 @@ public class BoardDAO {
 	public List<BoardVO> getBoardList(int startIndexNo, int pageSize) {
 		List<BoardVO> vos = new ArrayList<BoardVO>();
 		try {
-			sql = "SELECT *, timestampdiff(hour, wDate, now()) AS hourDiff, datediff(now(), wDate) AS dateDiff FROM board ORDER BY idx DESC LIMIT ?,?;";
+			sql = "SELECT *, timestampdiff(hour, wDate, now()) AS hourDiff, "
+					+ "datediff(now(), wDate) AS dateDiff, "
+					+ "(SELECT count(idx) FROM boardReply WHERE boardIdx = board.idx) AS replyCnt "
+					+ "FROM board ORDER BY idx DESC LIMIT ?,?;";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
@@ -74,6 +77,7 @@ public class BoardDAO {
 				
 				vo.setHourDiff(rs.getInt("hourDiff"));
 				vo.setDateDiff(rs.getInt("dateDiff"));
+				vo.setReplyCnt(rs.getInt("replyCnt"));;
 				vos.add(vo);
 			}
 		} catch (SQLException e) {
@@ -306,6 +310,21 @@ public class BoardDAO {
 			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL에러.(setReplyDeleteOk)"+e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+	public int setReplyUpdateOk(int replyIdx, String replyContent) {
+		int res = 0;
+		try {
+			sql = "UPDATE boardReply SET content = ? WHERE idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, replyContent);
+			pstmt.setInt(2, replyIdx);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL에러.(setReplyUpdateOk)"+e.getMessage());
 		} finally {
 			pstmtClose();
 		}
