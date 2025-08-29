@@ -20,7 +20,7 @@ public class PDSController extends HttpServlet {
 		CommonInterface command = null;
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/")+1, com.lastIndexOf("."));
-		String viewPage = "/WEB-INF/board/";
+		String viewPage = "/WEB-INF/pds/";
 		HttpSession session = request.getSession();
 		String mid = (String)session.getAttribute("sMid");
 		
@@ -30,11 +30,12 @@ public class PDSController extends HttpServlet {
 			viewPage = "/include/message";
 		}
 		else if(com.equals("PDSList")) {
-			command = new PDSCommand();
+			command = new PDSListCommand();
 			command.execute(request, response);
 			viewPage += "pdsList";
 		}
 		else if(com.equals("PDSInput")) {
+			request.setAttribute("part", request.getParameter("part"));
 			viewPage += "pdsInput";
 		}
 		else if(com.equals("PDSInputOk")) {
@@ -42,11 +43,6 @@ public class PDSController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/include/message";
 		}
-//		else if(com.equals("BoardContent")) {
-//			command = new BoardContentCommand();
-//			command.execute(request, response);
-//			viewPage += "boardContent";
-//		}
 //		else if(com.equals("BoardGoodCheckPlusMinus")) {
 //			command = new BoardGoodCheckPlusMinusCommand();
 //			command.execute(request, response);

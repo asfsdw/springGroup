@@ -16,7 +16,7 @@
 				</li>
 				<li class="nav-item">
 					<!-- Posting Data System -->
-					<a class="nav-link" href="PDS.pds">자료실(PDS)</a>
+					<a class="nav-link" href="PDSList.pds">자료실(PDS)</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="${ctp}/study2/login/LoginInfo">회원정보</a>
@@ -34,6 +34,8 @@
 							<li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension5.test5">확장자매핑 연습5</a></li>
 							<li><a class="dropdown-item" href="UUID.study">UUID연습</a></li>
 							<li><a class="dropdown-item" href="FileUpload.study">파일 업로드 연습(COS라이브러리)</a></li>
+							<li><a class="dropdown-item" href="SHA.study">SHA암호화</a></li>
+							<li><a class="dropdown-item" href="ModalTest.study">Modal 연습</a></li>
 						</ul>
 					</div>
 				</li>

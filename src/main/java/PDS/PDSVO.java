@@ -5,16 +5,19 @@ public class PDSVO {
 	private String mid;
 	private String nickName;
 	private String fName;
-	private int fSize;
 	private String fsName;
+	private String fSize;
 	private String part;
 	private String title;
 	private String content;
-	private String fDate;
 	private String openSW;
 	private String pwd;
 	private String hostIP;
 	private int downNum;
+	private String fDate;
+	
+	private int hourDiff;
+	private int dateDiff;
 	
 	public int getIdx() {
 		return idx;
@@ -40,17 +43,17 @@ public class PDSVO {
 	public void setfName(String fName) {
 		this.fName = fName;
 	}
-	public int getfSize() {
-		return fSize;
-	}
-	public void setfSize(int fSize) {
-		this.fSize = fSize;
-	}
-	public String getFsName() {
+	public String getfsName() {
 		return fsName;
 	}
-	public void setFsName(String fsName) {
+	public void setfsName(String fsName) {
 		this.fsName = fsName;
+	}
+	public String getfSize() {
+		return fSize;
+	}
+	public void setfSize(String fSize) {
+		this.fSize = fSize;
 	}
 	public String getPart() {
 		return part;
@@ -69,12 +72,6 @@ public class PDSVO {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getfDate() {
-		return fDate;
-	}
-	public void setfDate(String fDate) {
-		this.fDate = fDate;
 	}
 	public String getOpenSW() {
 		return openSW;
@@ -100,11 +97,30 @@ public class PDSVO {
 	public void setDownNum(int downNum) {
 		this.downNum = downNum;
 	}
-
+	public String getfDate() {
+		return fDate;
+	}
+	public void setfDate(String fDate) {
+		this.fDate = fDate;
+	}
+	public int getHourDiff() {
+		return hourDiff;
+	}
+	public void setHourDiff(int hourDiff) {
+		this.hourDiff = hourDiff;
+	}
+	public int getDateDiff() {
+		return dateDiff;
+	}
+	public void setDateDiff(int dateDiff) {
+		this.dateDiff = dateDiff;
+	}
+	
 	@Override
 	public String toString() {
-		return "PDSVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fSize=" + fSize
-				+ ", fsName=" + fsName + ", part=" + part + ", title=" + title + ", content=" + content + ", fDate=" + fDate
-				+ ", openSW=" + openSW + ", pwd=" + pwd + ", hostIP=" + hostIP + ", downNum=" + downNum + "]";
+		return "PDSVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fsName=" + fsName
+				+ ", fSize=" + fSize + ", part=" + part + ", title=" + title + ", content=" + content + ", openSW=" + openSW
+				+ ", pwd=" + pwd + ", hostIP=" + hostIP + ", downNum=" + downNum + ", fDate=" + fDate + ", hourDiff=" + hourDiff
+				+ ", dateDiff=" + dateDiff + "]";
 	}
 }

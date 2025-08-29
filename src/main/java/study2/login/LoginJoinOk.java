@@ -37,7 +37,6 @@ public class LoginJoinOk extends HttpServlet {
 		String gender = multipartRequest.getParameter("gender")==null ? "" : multipartRequest.getParameter("gender");
 		String address = multipartRequest.getParameter("address")==null ? "" : multipartRequest.getParameter("address");
 		
-		
 		LoginDAO dao = new LoginDAO();
 		
 		LoginVO voMid = dao.getLoginIDCheck(mid);
@@ -56,8 +55,6 @@ public class LoginJoinOk extends HttpServlet {
 		pwd = (Integer.parseInt(pwd) ^ saltKey)+"";
 		pwd = saltKey+""+pwd;
 		
-		System.out.println(originalFileName);
-		System.out.println(filesystemName);
 		LoginVO vo = new LoginVO();
 		vo.setMid(mid);
 		vo.setPwd(pwd);
@@ -77,10 +74,11 @@ public class LoginJoinOk extends HttpServlet {
 			photoVO.setServerName(filesystemName);
 			photoRes = dao.setPhotoOk(photoVO);
 		}
+		
 		int res = dao.setLoginJoinOk(vo);
 		
 		// 사진을 올렸는데 테이블에 입력이 안 돼서 0이 반환되면.
-		if(photoRes < 0) {
+		if(photoRes < 1) {
 			out.println("<script>");
 			out.println("alert('프로필 사진 업로드에 실패했습니다.');");
 			out.println("location.href='"+request.getContextPath()+"/study2/login/LoginJoin';");

@@ -27,8 +27,8 @@ public class FileDeleteCommand implements CommonInterface {
 			for(String fNameDelete : fNames) {
 				file = new File(realPath+fNameDelete);
 				if(file.exists()) file.delete();
-				res = "1";
 			}
+			res = "1";
 		}
 		// 삭제를 눌러서 fName이 넘어왔다면.
 		else {

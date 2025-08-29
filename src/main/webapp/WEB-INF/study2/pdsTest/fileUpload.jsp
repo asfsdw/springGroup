@@ -28,9 +28,10 @@
 		</pre>
 		<p><br/></p>
 		<div class="row">
-			<div class="col"><a href="FileUpload1.study" class="btn btn-success">파일 업로드1</a></div>
-			<div class="col"><a href="FileUpload2.study" class="btn btn-primary">파일 업로드2</a></div>
-			<div class="col"><a href="FileUpload3.study" class="btn btn-info">파일 업로드3</a></div>
+			<div class="col"><a href="FileUpload1.study" class="btn btn-success">파일 업로드1(싱글파일)</a></div>
+			<div class="col"><a href="FileUpload2.study" class="btn btn-primary">파일 업로드2(멀티파일)</a></div>
+			<div class="col"><a href="FileUpload3.study" class="btn btn-info">파일 업로드3(멀티파일)</a></div>
+			<div class="col"><a href="FileUpload4.study" class="btn btn-warning">파일 업로드4(멀티파일)</a></div>
 		</div>
 		<p><br/></p>
 		<div class="row">

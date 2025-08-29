@@ -11,7 +11,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.CommonInterface;
 
-public class FileUploadOk1Command implements CommonInterface {
+public class FileUploadOk4Command implements CommonInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,18 +21,10 @@ public class FileUploadOk1Command implements CommonInterface {
 		// 파일 업로드.
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
 		
-		// 업로드된 파일의 정보 추출.
-		String part = multipartRequest.getFilesystemName("part"); 
-		String originalFileName = multipartRequest.getOriginalFileName("fName");
-		String filesystemName = multipartRequest.getFilesystemName("fName");
-		System.out.println(part);
-		System.out.println(originalFileName);
-		System.out.println(filesystemName);
-		
-		if(originalFileName != null && !originalFileName.equals("")) request.setAttribute("message", "파일전송 완료.");
-		else request.setAttribute("message", "파일전송 실패.");
-		
-		request.setAttribute("url", "FileUpload1.study");
+		// 업로드된 파일의 정보 추출.(테이블에 저장하기 위해 원본 이름과 저장된 이름을 각각 출력.
+		String fName = request.getParameter("fName");
+		System.out.println(fName);
+		request.setAttribute("url", "FileUpload4.study");
 	}
 
 }
